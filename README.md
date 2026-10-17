@@ -1,6 +1,6 @@
 # System Biology Models
 
-Three small computational models in Python. Each one tests where a standard biological approximation holds, and is checked against an analytical solution or numerical convergence tests rather than just plotted.
+Three small computational models in Python. Three small computational models in Python, each checked against an analytical solution or a convergence test rather than just plotted.
 
 ## Projects
 
@@ -37,7 +37,3 @@ Each folder is self-contained. Open its notebook and choose Run All, or run its 
 ## Data and parameters
 
 The models use published literature values only (*E. coli* parameters in folder 03). No proprietary or unpublished data is used.
-
-## License
-
-MIT. See `LICENSE`.
