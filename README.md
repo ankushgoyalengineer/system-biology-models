@@ -1,40 +1,43 @@
-# Systems Biology Models
+# System Biology Models
 
-Four small computational models in Python. Each is checked against an analytical solution or independent software rather than just plotted. Folder 04 is an independent reproduction of a published model.
+Three small computational models in Python. Each one tests where a standard biological approximation holds, and is checked against an analytical solution or numerical convergence tests rather than just plotted.
+
+## Projects
 
 | Folder | Question | Result |
 | --- | --- | --- |
 | `01-predator-prey` | How do predator–prey dynamics change with and without resource limits? | Validated convergence to carrying capacity; compared oscillating and stabilising behaviour |
 | `02-Michaelis-Menten` | Where does the Michaelis–Menten approximation hold? | Agrees within 1.4% when substrate greatly exceeds enzyme; fails by two orders of magnitude when enzyme is in excess |
 | `03-gene-expression` | How does repression steepness shape negative-feedback dynamics? | Steady states match analytical solutions; overshoot rises from 1.0 to 3.46-fold across Hill coefficients 1–10 |
-| `04-gene_network_HSCs` | Can a published Boolean model of blood stem cell fate be reproduced from its rules alone? | Yes, exactly, with two issues found in the paper (below) |
 
-## 04: Reproduction of a blood stem cell fate model
+## What each model does
 
-Reproduces the 21-gene regulatory network of Herrera et al. (2024), *npj Systems Biology and Applications* [add DOI link], from the published rules. Independent work, not affiliated with the authors.
+**Population dynamics (`01-predator-prey`).** Simulates predator–prey systems with and without resource limits. Checks convergence to the carrying capacity and compares oscillating with stabilising behaviour.
 
-- Searched all 2,097,152 network states and recovered the model's 13 stable cell states and 18 attractors.
-- All 18 basin sizes match the authors' own software (BoolNet in R), state for state. Published cell-fate percentages and six mutant simulations also match.
-- 14 automated tests (`pytest`).
+**Enzyme kinetics (`02-Michaelis-Menten`).** A mass-action model of enzyme–substrate binding, used to test where the Michaelis–Menten approximation holds. The two agree within 1.4% when substrate greatly exceeds enzyme. When enzyme is in excess, the approximation fails by two orders of magnitude.
 
-### Findings
+**Gene regulation with negative feedback (`03-gene-expression`).** Models mRNA and protein dynamics using literature-based *E. coli* parameters. Steady states are validated against analytical solutions, and numerical step-size checks confirm the simulations are stable. The model shows that steeper repression produces larger overshoot, from 1.0-fold to 3.46-fold across Hill coefficients 1 to 10.
 
-1. **Figure error.** Two progenitor states in [Figure X: confirm number] are drawn inconsistently with the model's rules. Confirmed by running the authors' rules file through BoolNet.
-2. **Comparison inconsistency.** The paper compares wild-type and mutant results in a way that distorts fold changes by about 9%. Two published conclusions depend on how cyclic attractors are treated.
+## Related project
 
-## How to run
+A fourth project, an independent reproduction of a published Boolean model of blood stem cell fate, lives in its own repository: [hsc-boolean-network-reproduction](https://github.com/ankushgoyalengineer/hsc-boolean-network-reproduction).
 
-[Confirm these match the repo before publishing.]
+## Setup
+
+You need Python 3 with NumPy, SciPy, Matplotlib and Jupyter.
 
 ```bash
-git clone https://github.com/ankushgoyalengineer/systems-bio-lab.git
-cd systems-bio-lab
-pip install -r requirements.txt
-pytest
+git clone https://github.com/ankushgoyalengineer/system-biology-models.git
+cd system-biology-models
+pip install numpy scipy matplotlib jupyter
 ```
 
-Python [version]. The BoolNet cross-check needs R with the `BoolNet` package.
+Each folder is self-contained. Open its notebook and choose Run All, or run its script with `python <file>.py`.
 
 ## Data and parameters
 
-Models use published rules and literature parameters only (E. coli parameters in folder 03: [add citation]). No proprietary or unpublished data.
+The models use published literature values only (*E. coli* parameters in folder 03). No proprietary or unpublished data is used.
+
+## License
+
+MIT. See `LICENSE`.
